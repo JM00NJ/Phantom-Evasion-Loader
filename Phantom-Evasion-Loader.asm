@@ -54,7 +54,7 @@ section .data
     ; WARNING: Ensure the chosen service is NOT confined by AppArmor or SELinux.
     ; If the target has a strict security profile, ptrace injection will be 
     ; blocked (EPERM) and the loader will fail. Choose your host carefully!
-    ; CHECK THE LINE 265
+    ; CHECK THE LINE 173
     ; ===========================================================================
 	target db "cron", 10						
 	comm_file db "comm", 0
