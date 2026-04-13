@@ -41,9 +41,9 @@ It processes raw hex strings and encrypts them using an 8-byte Little-Endian key
 
 This ensures that the xor r10, r14 instruction in the Assembly source correctly restores the original instructions at runtime.
 ## Resources
-**Blog / Technical Writeup:** netacoding.com
+**Blog / Technical Writeup:** https://netacoding.com/posts/phantom-evasion-loader-blog/
 
-**Author:** github.com/JM00NJ
+**Author:** https://github.com/JM00NJ
 
 ## ⚖️ Licensing
 This project is licensed under GNU AGPLv3. I chose this to ensure the research remains open and beneficial to the community.
