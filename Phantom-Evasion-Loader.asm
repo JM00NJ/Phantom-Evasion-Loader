@@ -483,7 +483,7 @@ x6_syscall:
 	
 	mov qword [working_user_regs_struct + 80], 10      ; RAX = 10  sys_mprotect
 	mov qword [working_user_regs_struct + 112], rbx	
-	mov qword [working_user_regs_struct + 96], 7        ; RDX = 7 (READ|WRITE|EXEC)	;mov qword [working_user_regs_struct + 96], 5		; (PROT_READ | PROT_EXEC)
+	mov qword [working_user_regs_struct + 96], 5        ; RDX = 7 (READ|WRITE|EXEC)	;mov qword [working_user_regs_struct + 96], 5		; (PROT_READ | PROT_EXEC)
 	mov qword [working_user_regs_struct + 104], 0x800000
 	
 	
