@@ -29,6 +29,21 @@ As seen below, the polymorphic CMOV architecture and zero-copy injection complet
 
 ![Sandbox Dynamic Evasion_2](https://github.com/user-attachments/assets/8b9e69cd-c48e-4148-919f-089f655289d8)
 
+> **🎯 Advanced Sandbox Validation:** Following static analysis success, the loader underwent behavioral testing on Hatching Triage's enterprise sandbox platform. Despite executing full SROP-based injection and deploying live C2 shellcode, the loader achieved **remarkable evasion** against modern behavioral heuristics.
+
+**Triage Sandbox Results:**
+- **Risk Score:** 8/10 (Discovery Classification - Non-Malicious)
+- **Process Enumeration:** ✅ Detected (`/proc/*/comm` reads flagged)  
+- **Ptrace Syscall:** ✅ Detected (Basic "traces remote process" signature)
+- **SROP Injection:** ❌ **Completely Missed** (rt_sigreturn technique invisible)
+- **process_vm_writev:** ❌ **Completely Missed** (Modern injection method undetected)
+- **Post-Injection C2:** ❌ **Completely Missed** (ICMP/DNS shellcode activity transparent)
+
+**Critical Finding:** While the sandbox identified **surface-level reconnaissance** (process discovery), it failed to detect the **core injection mechanism** and **post-compromise activity**. This demonstrates that sophisticated userland techniques can achieve substantial evasion against behavioral analysis engines.
+
+📊 **[View Full Triage Report](https://tria.ge/260421-szzkksgz5r/behavioral1)**
+
+*The loader successfully maintained operational stealth during the most critical phases: memory injection, syscall obfuscation via SROP, and C2 beacon establishment - validating the effectiveness of the branch-free + direct-syscall architecture against next-generation sandbox detection.*
 
 ## 📝 Important Note: Shellcode Testing
 For safety and modularity, this repository does not contain an active malicious payload. The c2_payload section is provided as a placeholder.
