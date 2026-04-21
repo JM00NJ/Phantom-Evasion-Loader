@@ -18,7 +18,7 @@ Dynamic Target Enumeration: Automatically parses the /proc filesystem to locate 
 ## 🚀 Evasion Strategy
 This loader masquerades as a "System Fault Debugger." When renamed to strace or gdb, most EDR rules mark the initial ptrace_attach as an administrative task. The subsequent "heavy lifting"—allocating 8MB of memory and injecting the agent—remains completely invisible thanks to the SROP and process_vm_writev implementation.
 
-## Proof of Concept: 0/65 Detections on VirusTotal
+## Proof of Concept: 0/65 Detections on VirusTotal / Triage Report
 As seen below, the polymorphic CMOV architecture and zero-copy injection completely blind Static ML and Next-Gen EDRs.
 
 > **🔥 Update on Weaponized Testing:** The loader was additionally tested by embedding a fully weaponized, XOR-encrypted Ghost-C2 agent shellcode. Thanks to the in-memory decryption routine masked by the branch-free architecture, the detection rate remained a flawless **0/65**.
