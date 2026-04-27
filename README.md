@@ -1,3 +1,5 @@
+# SROP-Assisted Cross-Memory Attach (CMA) Injection via Direct Syscalls.
+
 # 👻 Phantom-Evasion-Loader (x64 Linux)
 Phantom-Evasion-Loader is a standalone, pure x64 Assembly injection engine engineered to minimize the detection surface of modern EDR/XDR solutions and Kernel-level monitors like Falco (eBPF). It leverages advanced techniques such as SROP and Zero-Copy Injection to deliver payloads as a ghost in the machine.
 
